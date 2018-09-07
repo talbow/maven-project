@@ -1,13 +1,16 @@
+
 pipeline {
    agent any
    stages{
-       stage ('Build and Package'){
+       stage ('Build / Package'){
            steps {
                build job: '01-java-demo-package'
            }
            post {
                success {
-                   echo 'Build / Package successful'
+                   echo 'Project clean and build successful...'
+               }
+           }
        }
        stage ('Deploy to QA'){
            steps {
