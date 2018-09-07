@@ -1,16 +1,13 @@
 pipeline {
    agent any
    stages{
-       stage('Build'){
+       stage ('Build and Package'){
            steps {
-               sh 'mvn clean package'
+               build job: '01-java-demo-package'
            }
            post {
                success {
-                   echo 'Now Archiving...'
-                   archiveArtifacts artifacts: '**/target/*.war'
-               }
-           }
+                   echo 'Build / Package successful'
        }
        stage ('Deploy to QA'){
            steps {
