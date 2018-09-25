@@ -3,7 +3,7 @@ pipeline {
    stages{
        stage ('Build / Package'){
            steps {
-               build job: '01-java-demo-package'
+               build job: '02-java-demo-package'
            }
            post {
                success {
@@ -11,9 +11,14 @@ pipeline {
                }
            }
        }
+       stage ('Static Analysis'){
+           steps {
+               build job: '02-java-demo-static-analysis'
+           }
+       }      
        stage ('Deploy to QA'){
            steps {
-               build job: '01-java-demo-deploy-to-qa'
+               build job: '02-java-demo-deploy-to-qa'
            }
        }
        stage ('Deploy to Prod'){
@@ -21,7 +26,7 @@ pipeline {
                timeout(time:5, unit:'DAYS'){
                    input message:'Approve PRODUCTION Deployment?'
                }
-               build job: '01-java-demo-deploy-to-prod'
+               build job: '02-java-demo-deploy-to-prod'
            }
            post {
                success {
