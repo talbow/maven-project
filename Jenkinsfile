@@ -20,13 +20,6 @@ pipeline {
            steps {
                build job: '02-java-demo-deploy-to-qa'
            }
-           post {
-               success {
-                   mail to: 'william.talbot.dell@gmail.com',
-                        subject: "** Deployment ** to PROD Approval Requested: ${currentBuild.fullDisplayName}",
-                        body: "Approval for PROD deployment at: ${env.BUILD_URL}"
-               }
-           }
        }
        stage ('Deploy to Prod'){
            steps{
